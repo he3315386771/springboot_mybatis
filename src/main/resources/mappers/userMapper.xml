@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hejj.mapper.UserMapper">
+    <insert id="addUser" parameterType="com.hejj.bean.User">
+        insert into tb_user(user_name,user_pwd) values (#{userName},#{userPwd})
+    </insert>
+    <select id="selectByName" parameterType="string" resultType="com.hejj.bean.User">
+        select * from tb_user where user_name=#{name}
+    </select>
+    <select id="selectById" resultType="com.hejj.bean.User">
+        select * from tb_user where user_id=#{id}
+    </select>
+    <delete id="delUser">
+        delete from tb_user where user_id = #{userId}
+    </delete>
+    <update id="updateUser" parameterType="com.hejj.bean.User">
+        update tb_user set user_name=#{userName},user_pwd=#{userPwd} where user_id = ${userId}
+    </update>
+    <select id="selectByParam" parameterType="com.hejj.query.UserQuery" resultType="com.hejj.bean.User">
+        select * from tb_user where user_name like concat("%",#{userName},"%")
+    </select>
+</mapper>
