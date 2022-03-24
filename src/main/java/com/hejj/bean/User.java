@@ -1,8 +1,15 @@
 package com.hejj.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "用户数据")
 public class User {
+    @ApiModelProperty(name = "userId",value = "用户ID")
     private Integer userId;
+    @ApiModelProperty(value = "用户姓名")
     private String userName;
+    @ApiModelProperty(value = "用户密码")
     private String userPwd;
     public User(){}
 

@@ -1,12 +1,15 @@
 package com.hejj.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hejj.bean.User;
 import com.hejj.exception.ParamsException;
 import com.hejj.query.UserQuery;
 import com.hejj.service.UserService;
 import com.hejj.vo.ResultInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController//每个方法上都加上@Responsebody
@@ -16,17 +19,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("findUser/{uname}")
+    @ApiImplicitParam(name = "uname",value = "查询参数",required = true,type = "path")
+    @GetMapping("findUser/{uname}")
     public User sayName(@PathVariable String uname){
         return userService.findByName(uname);
     }
 
-    @RequestMapping("findUserId/{id}")
-    public User sayId(@PathVariable Integer id){
-        return userService.findById(id);
+    @GetMapping("findUserId/{id}")
+    @ApiOperation(value = "根据ID查询用户记录")
+    @ApiImplicitParam(name = "userId",value = "用户ID",required = true,type = "path")
+    public User sayId(@PathVariable Integer userId){
+        return userService.findById(userId);
     }
 
-    @RequestMapping("del/{id}")
+    @DeleteMapping("del/{id}")
+    @ApiOperation(value = "根据ID删除用户记录")
+    @ApiImplicitParam(name = "id",value = "用户ID",required = true,type = "path")
     public ResultInfo sayDel(@PathVariable Integer id){
         ResultInfo result = new ResultInfo();
         try{
@@ -42,7 +50,9 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping("add")
+    @PostMapping("add")
+    @ApiOperation(value = "添加用户记录")
+    @ApiImplicitParam(name = "user",value = "添加的用户",required = true,type = "form")
     public ResultInfo sayDel(User user){
         ResultInfo result = new ResultInfo();
         try{
@@ -58,7 +68,9 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping("update")
+    @PostMapping("update")
+    @ApiOperation(value = "修改用户记录")
+    @ApiImplicitParam(name = "user",value = "修改的用户",required = true,type = "form")
     public ResultInfo sayUp(User user){
         ResultInfo result = new ResultInfo();
         try{
@@ -74,20 +86,10 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping("page")
-    public ResultInfo sayPage(UserQuery user){
-        ResultInfo result = new ResultInfo();
-        try{
-            result.setObject(userService.findByQuery(user));
-        }catch (ParamsException pe){
-            pe.printStackTrace();
-            result.setCode(pe.getCode());
-            result.setMsg(pe.getMsg());
-        }catch (Exception e){
-            e.printStackTrace();
-            result.setCode(300);
-            result.setMsg("查询失败");
-        }
-        return result;
+    @PostMapping("page")
+    @ApiOperation(value = "分页查询用户记录")
+    @ApiImplicitParam(name = "userQuery",value = "查询参数对象",required = true,type = "form")
+    public PageInfo<User> sayPage(UserQuery userQuery){
+        return userService.findByQuery(userQuery);
     }
 }
