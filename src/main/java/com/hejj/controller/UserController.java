@@ -37,17 +37,7 @@ public class UserController {
     @ApiImplicitParam(name = "id",value = "用户ID",required = true,type = "path")
     public ResultInfo sayDel(@PathVariable Integer id){
         ResultInfo result = new ResultInfo();
-        try{
-            userService.delUser(id);
-        }catch (ParamsException pe){
-            pe.printStackTrace();
-            result.setCode(pe.getCode());
-            result.setMsg(pe.getMsg());
-        }catch (Exception e){
-            e.printStackTrace();
-            result.setCode(300);
-            result.setMsg("删除失败");
-        }
+        userService.delUser(id);
         return result;
     }
     @PostMapping("add")
@@ -55,17 +45,7 @@ public class UserController {
     @ApiImplicitParam(name = "user",value = "添加的用户",required = true,type = "form")
     public ResultInfo sayDel(User user){
         ResultInfo result = new ResultInfo();
-        try{
-            userService.addUser(user);
-        }catch (ParamsException pe){
-            pe.printStackTrace();
-            result.setCode(pe.getCode());
-            result.setMsg(pe.getMsg());
-        }catch (Exception e){
-            e.printStackTrace();
-            result.setCode(300);
-            result.setMsg("添加失败");
-        }
+        userService.addUser(user);
         return result;
     }
     @PostMapping("update")
@@ -73,17 +53,7 @@ public class UserController {
     @ApiImplicitParam(name = "user",value = "修改的用户",required = true,type = "form")
     public ResultInfo sayUp(User user){
         ResultInfo result = new ResultInfo();
-        try{
-            userService.updateUser(user);
-        }catch (ParamsException pe){
-            pe.printStackTrace();
-            result.setCode(pe.getCode());
-            result.setMsg(pe.getMsg());
-        }catch (Exception e){
-            e.printStackTrace();
-            result.setCode(300);
-            result.setMsg("修改失败");
-        }
+        userService.updateUser(user);
         return result;
     }
     @PostMapping("page")
