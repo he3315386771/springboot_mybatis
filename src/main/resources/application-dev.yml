@@ -1,6 +1,7 @@
 # 服务器配置
 server:
   port: 8085
+
 # 数据源配置
 spring:
   datasource:
@@ -8,5 +9,16 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/sb_mybatis?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
     password: root
+  # 热部署配置
+  devtools:
+    restart:
+      enabled: true
+      # 设置重启的目录,添加目录的文件需要restart
+      additional-paths: src/main/java
+      # 解决项目自动重新编译后接口报404问题
+      poll-interval: 3000
+      quiet-period: 1000
+
+# swagger启用
 swagger:
   enable: true

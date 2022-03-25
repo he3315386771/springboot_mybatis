@@ -89,14 +89,23 @@
       <artifactId>swagger-models</artifactId>
       <version>${springfox.swagger2.model.v}</version>
     </dependency>
+    <!--springboot分页插件-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
   <build>
+    <finalName>sboot-mybatis</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <fork>true</fork> <!--热部署devtools启动-->
+        </configuration>
       </plugin>
     </plugins>
-    <finalName>sboot-mybatis</finalName>
   </build>
 </project>

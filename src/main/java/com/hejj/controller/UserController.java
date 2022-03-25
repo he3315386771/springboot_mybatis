@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("findUserId/{id}")
     @ApiOperation(value = "根据ID查询用户记录")
     @ApiImplicitParam(name = "userId",value = "用户ID",required = true,type = "path")
-    public User sayId(@PathVariable Integer userId){
+    public User sayId(@PathVariable(value = "id") Integer userId){
         return userService.findById(userId);
     }
 
